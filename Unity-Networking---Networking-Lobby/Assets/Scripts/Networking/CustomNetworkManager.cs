@@ -11,7 +11,15 @@ public class CustomNetworkManager : NetworkManager
 	public static bool Open = true;
 
 
-	public override void OnStartServer() => Lobby = new LobbyManager(NetworkServer.maxConnections);
+	public override void OnStartServer()
+	{
+		Lobby = new LobbyManager(NetworkServer.maxConnections);
+
+		if (TryGetComponent<NetworkManagerHUD>(out var HUD))
+		{
+			HUD.enabled = false;
+		}
+	}
 
 	public override void OnServerConnect(NetworkConnection conn)
 	{
@@ -22,6 +30,20 @@ public class CustomNetworkManager : NetworkManager
 
 		}
 	}
+
+	private void OnGUI()
+	{
+		if (Lobby == null) return;
+
+		GUILayout.BeginHorizontal("box");
+
+		foreach (int value in Lobby.OpenIDs)
+		{
+			GUILayout.Label(value.ToString());
+		}
+
+		GUILayout.EndHorizontal();
+	}
 }
 
 public class LobbyManager
@@ -31,21 +53,15 @@ public class LobbyManager
 
 	public LobbyManager(int count) { for (int i = count; i >= 0; i--) OpenIDs.Push(i); }
 
+
 	public void RequestID(Player player)
 	{
-		player.PlayerID = OpenIDs.Pop();
-		RpcUpdateConnectionMenu(true, player.PlayerID);
+		player.PlayerID.ID = OpenIDs.Pop();
 	}
 
 	public void ReleaseID(int ID)
 	{
+		Debug.Log("adding ID: " + ID);
 		OpenIDs.Push(ID);
-		RpcUpdateConnectionMenu(false, ID);
-	}
-
-	[ClientRpc]
-	void RpcUpdateConnectionMenu(bool join, int ID)
-	{
-		if (join) ConnectionsMenu.Instance.AddConnection(ID);
 	}
 }

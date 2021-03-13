@@ -5,12 +5,6 @@ using Mirror;
 using TMPro;
 
 
-//[Command]
-//public void CmdSendMessageToChatBox(string message)
-//{
-//	FindObjectOfType<ChatBox>()?.RpcReceiveNewMessage(message);
-//}
-
 public class ChatBox : NetworkBehaviour
 {
 	[SerializeField]
@@ -20,16 +14,32 @@ public class ChatBox : NetworkBehaviour
 	private Transform contentAnchor = null;
 
 	[SerializeField]
+	private GameObject chatObject = null;
+
+	[SerializeField]
 	private GameObject messagePrefab = null;
 
 
+	public KeyCode ShowKey = KeyCode.LeftShift;
+
+	// Show or Hide the Chat
+	void Update()
+	{
+		if (Input.GetKeyDown(ShowKey)) {
+			chatObject.SetActive(!chatObject.activeSelf);
+		}
+	}
+
+	// Send a message to the server
 	public void Send()
 	{
 		string message = inputField.text;
 
-		inputField.text = "";
 
-		Player.LocalPlayer.CmdSendMessageToChatBox(message);
+		// Find the local players 'ChatBox' manager and send the message
+		Player.LocalPlayer.Chat.CmdSendMessageToChatBox(message);
+
+		inputField.text = "";
 	}
 
 	public void OnEndEdit() { if (Input.GetKeyDown(KeyCode.Return)) Send(); }
