@@ -5,7 +5,7 @@ using Mirror;
 
 
 [RequireComponent(typeof(Player))]
-public class Player_Lobby : NetworkBehaviour
+public class PlayerLobby : NetworkBehaviour
 {
 	[SerializeField]
 	private LobbyItem infoPanelPrefab = null;

@@ -30,7 +30,7 @@ public class LobbyItem : NetworkBehaviour
 	{
 		foreach (Player player in FindObjectsOfType<Player>())
 		{
-			player.Lobby.InfoPanel.RpcUpdateInfo(player.PlayerID.ID);
+			player.Lobby.InfoPanel.RpcUpdateInfo(player.ID);
 		}
 	}
 
@@ -38,5 +38,8 @@ public class LobbyItem : NetworkBehaviour
 	public void RpcUpdateInfo(int ID)
 	{
 		nameText.text = ID.ToString();
+
+		// Call the On Lobby update event
+		Player.LocalPlayer.OnLobbyUpdate(nameText.text);
 	}
 }

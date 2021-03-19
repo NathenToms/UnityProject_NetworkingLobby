@@ -7,19 +7,20 @@ using TMPro;
 
 public class ChatBox : NetworkBehaviour
 {
-	[SerializeField]
-	private TMP_InputField inputField = null;
+	// The text field the player has types there message into.
+	[SerializeField] private TMP_InputField inputField = null;
 
-	[SerializeField]
-	private Transform contentAnchor = null;
+	// The anchor we parent messages to whenever a new message is created.
+	[SerializeField] private Transform contentAnchor = null;
 
-	[SerializeField]
-	private GameObject chatObject = null;
+	// The message prefab we use to instantiate a new message
+	[SerializeField] private GameObject messagePrefab = null;
 
-	[SerializeField]
-	private GameObject messagePrefab = null;
+	// The chat object itself, we use this to hide the chat box when the player doesn't want to see it.
+	[SerializeField] private GameObject chatObject = null;
 
 
+	// The Key we press to toggle the viability of the chat
 	public KeyCode ShowKey = KeyCode.LeftShift;
 
 	// Show or Hide the Chat
@@ -27,6 +28,12 @@ public class ChatBox : NetworkBehaviour
 	{
 		if (Input.GetKeyDown(ShowKey)) {
 			chatObject.SetActive(!chatObject.activeSelf);
+
+			if (chatObject.activeSelf == true)
+			{
+				inputField.Select();
+				inputField.ActivateInputField();
+			}
 		}
 	}
 
@@ -35,9 +42,17 @@ public class ChatBox : NetworkBehaviour
 	{
 		string message = inputField.text;
 
+		// Validate Message the message
+		// Make sure its not profanity or black
+		if (ValidateMessage(message))
+		{
+			// Find the local players 'ChatBox' manager and send the message
+			Player.LocalPlayer.Chat.CmdSendMessageToChatBox($"[{Player.LocalPlayer.ID}] " + message);
 
-		// Find the local players 'ChatBox' manager and send the message
-		Player.LocalPlayer.Chat.CmdSendMessageToChatBox(message);
+		}
+
+		inputField.Select();
+		inputField.ActivateInputField();
 
 		inputField.text = "";
 	}
@@ -75,6 +90,10 @@ public class ChatBox : NetworkBehaviour
 		int lineCount = GetLineCount(messageText.GetComponentInChildren<TextMeshProUGUI>());
 
 		ResizeMessageBox(go, lineCount, messageText.fontSize);
+
+		
+		// Call the On message event
+		Player.LocalPlayer.OnChatMessage(message);
 	}
 
 	// Get the line count from a TextMeshProUGUI
@@ -88,5 +107,11 @@ public class ChatBox : NetworkBehaviour
 	public void ResizeMessageBox(GameObject messageObject, int lineCount, float fontSize)
 	{
 		messageObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (lineCount * (fontSize + 4) + 5));
+	}
+
+	// Validate the message
+	public bool ValidateMessage(string message)
+	{
+		return true;
 	}
 }

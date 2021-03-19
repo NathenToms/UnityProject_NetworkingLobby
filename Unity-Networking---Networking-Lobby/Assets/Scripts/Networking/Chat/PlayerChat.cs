@@ -7,11 +7,11 @@ using Mirror;
 // The PlayerChat Component is a part of the Player Object.
 [RequireComponent(typeof(Player))]
 
-public class Player_Chat : NetworkBehaviour
+public class PlayerChat : NetworkBehaviour
 {
 	[Command]
 	public void CmdSendMessageToChatBox(string message)
 	{
-		FindObjectOfType<ChatBox>().RpcReceiveNewMessage($"[Player {Player.LocalPlayer.PlayerID.ID}] | " + message);
+		FindObjectOfType<ChatBox>().RpcReceiveNewMessage(message);
 	}
 }
