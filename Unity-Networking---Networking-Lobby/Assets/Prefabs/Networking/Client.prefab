@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4781430874423014460}
   - component: {fileID: 4552450619000708995}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Client
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,6 +69,8 @@ MonoBehaviour:
   chat: {fileID: 4781430874423014460}
   lobby: {fileID: 1523851879535490370}
   playerID: {fileID: 4552450619000708995}
+  Username: 
+  Color: {r: 0.27426523, g: 0.26855645, b: 0.8018868, a: 1}
 --- !u!114 &1523851879535490370
 MonoBehaviour:
   m_ObjectHideFlags: 0

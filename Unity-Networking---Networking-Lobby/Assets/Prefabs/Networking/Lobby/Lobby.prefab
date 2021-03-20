@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyObject: {fileID: 2314224710537705937}
   Anchor: {fileID: 2971028888761308048}
-  ShowKey: 303
+  ShowKey: 283
 --- !u!1 &2314224710537705937
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2971028888761308048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.043137256}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

@@ -27,6 +27,7 @@ public class ChatBox : NetworkBehaviour
 	void Update()
 	{
 		if (Input.GetKeyDown(ShowKey)) {
+
 			chatObject.SetActive(!chatObject.activeSelf);
 
 			if (chatObject.activeSelf == true)
@@ -47,7 +48,7 @@ public class ChatBox : NetworkBehaviour
 		if (ValidateMessage(message))
 		{
 			// Find the local players 'ChatBox' manager and send the message
-			Player.LocalPlayer.Chat.CmdSendMessageToChatBox($"[{Player.LocalPlayer.ID}] " + message);
+			Player.LocalPlayer.Chat.CmdSendMessageToChatBox($"[{Player.LocalPlayer.Username}] " + message);
 
 		}
 
@@ -90,10 +91,6 @@ public class ChatBox : NetworkBehaviour
 		int lineCount = GetLineCount(messageText.GetComponentInChildren<TextMeshProUGUI>());
 
 		ResizeMessageBox(go, lineCount, messageText.fontSize);
-
-		
-		// Call the On message event
-		Player.LocalPlayer.OnChatMessage(message);
 	}
 
 	// Get the line count from a TextMeshProUGUI

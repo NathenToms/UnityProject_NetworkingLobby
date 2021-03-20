@@ -30,6 +30,16 @@ public abstract class Player : NetworkBehaviour
 	[SerializeField] private PlayerID playerID = null;
 
 
+	// Public Members
+	// This players username
+	[SyncVar(hook = "OnUsernameChange")] public string Username;
+	public virtual void OnUsernameChange(string oldUsername, string newUsername) { }
+
+	// This players Color
+	[SyncVar(hook = "OnColorChange")] public Color Color;
+	public virtual void OnColorChange(Color oldColor, Color newColor) { }
+
+
 	// Properties
 	// Get this players ID
 	public int ID { get { return playerID.ID; } set { playerID.ID = value; } }
@@ -48,6 +58,8 @@ public abstract class Player : NetworkBehaviour
 	public override void OnStopClient() => PlayerCount--;
 
 
+	public virtual void OnIDChange(int oldID, int newID) { }
+
 	public override void OnStartAuthority()
 	{
 		LocalPlayer = this;
@@ -55,7 +67,14 @@ public abstract class Player : NetworkBehaviour
 		Lobby.CmdSpawnConnectionPanel();
 	}
 
-	public virtual void OnChatMessage(string data) { }
-	public virtual void OnLobbyUpdate(string data) { }
-	public virtual void OnUpdateID(int newID) { }
+
+	[Command]
+	public void Cmd_UpdateUsername(string newUsername) {
+		Username = newUsername;
+	}
+
+	[Command]
+	public void Cmd_UpdateColor(Color newColor) {
+		Color = newColor;
+	}
 }

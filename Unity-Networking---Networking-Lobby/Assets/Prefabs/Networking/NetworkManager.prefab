@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4392383962073144047}
   - component: {fileID: 4392383962073143952}
-  - component: {fileID: 4392383962073143953}
-  - component: {fileID: 4392383962073143954}
+  - component: {fileID: 4914263170862516297}
+  - component: {fileID: 6041398061571595252}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -54,7 +54,7 @@ MonoBehaviour:
   serverBatchInterval: 0
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 4392383962073143953}
+  transport: {fileID: 6041398061571595252}
   networkAddress: localhost
   maxConnections: 8
   disconnectInactiveConnections: 0
@@ -66,7 +66,22 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 8708646296551614550, guid: 5e94aff2ae6240c4d879fb393eec585e, type: 3}
---- !u!114 &4392383962073143953
+--- !u!114 &4914263170862516297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392383962073143955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &6041398061571595252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,18 +103,3 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &4392383962073143954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4392383962073143955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0

@@ -15,6 +15,9 @@ public class PlayerID : NetworkBehaviour
 
 	public void UpdateID(int oldID, int newID)
 	{
-		if (Player.LocalPlayer) Player.LocalPlayer.OnUpdateID(newID);
+		Player player = GetComponent<Player>();
+
+		player.OnIDChange(oldID, newID);
+		player.Cmd_UpdateUsername($"Player {newID}");
 	}
 }
